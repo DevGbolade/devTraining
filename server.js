@@ -12,7 +12,7 @@ const { port, psqlUrl, psqlTest } = keys;
 
 const pool = new Pool({
   connectionString: process.env.NODE_ENV === 'test' ? psqlTest : psqlUrl
-//   ssl: true
+  //   ssl: true
 });
 
 pool
