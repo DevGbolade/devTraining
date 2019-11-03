@@ -1,3 +1,4 @@
+/* eslint-disable node/no-unsupported-features/es-syntax */
 import General from './generalUtilities';
 
 /**
@@ -11,15 +12,15 @@ class ResponseGenerator {
     this.message = null;
   }
 
-   /**
+  /**
    * Sends response
    * @param {object} res
    * @returns {object} response
    */
   send(res) {
     const filteredResponse = General.stripNull({
-      status: this.status,
-      data: this.data,
+      status: 'success',
+      data: this.data
     });
 
     if (this.type === 'success') {
@@ -27,8 +28,8 @@ class ResponseGenerator {
     }
     // Here this.type === 'error'
     return res.status(this.status).json({
-      status: this.status,
-      error: this.message,
+      status: 'error',
+      error: this.message
     });
   }
 
@@ -60,8 +61,6 @@ class ResponseGenerator {
 
     return this.send(res);
   }
-
- 
 }
 
 export default ResponseGenerator;
