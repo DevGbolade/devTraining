@@ -48,6 +48,7 @@ const createTables = `
     catId INTEGER NOT NULL,
     title VARCHAR(150) NOT NULL,
     imageUrl  VARCHAR(255) NOT NULL,
+    flagged BOOLEAN  NULL,
     createdOn TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(authourId) REFERENCES users(userId) ON DELETE CASCADE,
     FOREIGN KEY(catId) REFERENCES categories(catId) ON DELETE CASCADE
@@ -62,6 +63,7 @@ const createTables = `
     catId INTEGER NOT NULL,
     title VARCHAR(150) NOT NULL,
     article  TEXT NOT NULL,
+    flagged BOOLEAN  NULL,
     createdOn TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(authourId) REFERENCES users(userId) ON DELETE CASCADE
 
@@ -74,7 +76,7 @@ const createTables = `
     articleId INTEGER  NULL,
     gifId INTEGER  NULL,
     comment TEXT NOT NULL,
-    flagged BOOLEAN NOT NULL,
+    flagged BOOLEAN  NULL,
     createdOn TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY(authourId) REFERENCES users(userId) ON DELETE CASCADE,
     FOREIGN KEY(gifId) REFERENCES gifs(gifId) ON DELETE CASCADE,
