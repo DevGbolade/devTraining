@@ -20,25 +20,19 @@ class Authentication {
     if (payload.status && payload.status !== 200) {
       return response.sendError(res, payload.status, payload.message);
     }
-    req.user_id = payload.user_id;
-    req.is_admin = payload.is_admin;
+    req.userId = payload.userId;
+    req.jobRole = payload.jobRole;
     return next();
   }
 
-  static isAdmin(req, res, next) {
-    if (req.is_admin !== true) {
-      return response.sendError(res, 401, 'Authorized for only admins');
-    }
-    return next();
-  }
-  static restrictTo(...roles){
+  static restrictTo(...roles) {
     return (req, res, next) => {
-      if (!roles.includes(req.user.jobRole)) {
+      if (!roles.includes(req.jobRole)) {
         return response.sendError(res, 403, 'Authorized for only admins');
       }
       next();
     };
-  };
+  }
 
   /** Create a JWT
    * @param user
@@ -46,12 +40,12 @@ class Authentication {
 
   static signJwt(user) {
     const payload = {
-      user_id: user.user_id,
-      is_admin: user.is_admin,
+      userId: user.userId,
+      jobRole: user.jobRole,
       iat: moment().unix(),
       exp: moment()
         .add(1, 'days')
-        .unix(),
+        .unix()
     };
     return jwt.sign(payload, keys.secret);
   }
@@ -67,40 +61,41 @@ class Authentication {
     return payload;
   }
 
+  // returns the decoded user
   static bearer(token) {
     const payload = this.decodeJwt(token);
     return payload;
   }
 
+  // Getting token and check of it's there
   static async consumeToken(req) {
     const result = {};
     if (!req.headers.authorization) {
-      result.status = 401;
-      result.message = 'Please make sure your request has an authorization header';
+      result.status = 'error';
+      result.message =
+        'Please make sure your request has an authorization header';
       return result;
     }
     const token = req.headers.authorization.split(' ')[1];
     const type = req.headers.authorization.split(' ')[0];
-    console.log(type);
-    
     let payload;
     switch (type) {
       case 'Bearer':
         payload = Authentication.bearer(token);
         break;
       default:
-        result.status = 401;
+        result.status = 'error';
         result.message = 'Invalid token type. Must be type Bearer';
         return result;
     }
     if (!payload) {
-      result.status = 401;
+      result.status = 'error';
       result.message = 'Authorization Denied.';
       return result;
     }
 
     if (payload.exp <= moment().unix()) {
-      result.status = 401;
+      result.status = 'error';
       result.message = 'Token has expired';
       return result;
     }

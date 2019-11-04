@@ -2,9 +2,10 @@
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
+import userRoute from './api/routes/userRoute';
 
 const app = express();
-// const API_VERSION = '/api/v1';
+const API_VERSION = '/api/v1';
 
 app.use(morgan('dev'));
 app.use(cors());
@@ -15,7 +16,7 @@ app.use(
     extended: false
   })
 );
-// app.use(`${API_VERSION}`);
+app.use(`${API_VERSION}`, userRoute);
 // app.use(`${API_VERSION}`);
 // app.use(`${API_VERSION}`);
 // app.use(`${API_VERSION}`);
