@@ -1,4 +1,3 @@
-/* eslint-disable node/no-unsupported-features/es-syntax */
 import express from 'express';
 import authController from '../controllers/authController';
 // import userController from '../controllers/userController';
@@ -12,5 +11,7 @@ router.post(
   authMiddleware.restrictTo('admin'),
   authController.signup
 );
+
+router.post('/auth/signin', authController.signin);
 
 export default router;
