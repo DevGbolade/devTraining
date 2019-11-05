@@ -1,7 +1,5 @@
 import Joi from '@hapi/joi';
 
-const date = Joi.date();
-
 const string = Joi.string().regex(/^\D+$/);
 
 const email = Joi.string()
@@ -14,11 +12,6 @@ const password = Joi.string()
   .required()
   .strict();
 
-const id = Joi.number()
-  .integer()
-  .positive()
-  .min(1)
-  .required();
 
 const createUserSchema = Joi.object({
   firstName: string.required(),
@@ -28,10 +21,7 @@ const createUserSchema = Joi.object({
   gender: string.required(),
   jobRole: string.required(),
   department: string.required(),
-  address: string.required(),
-  isAdmin: Joi.boolean().default(false, {
-    invalid: false
-  })
+  address: string.required()
 });
 
 const signinUserSchema = Joi.object({

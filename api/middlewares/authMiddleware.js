@@ -40,12 +40,12 @@ class Authentication {
 
   static signJwt(user) {
     const payload = {
-      userId: user.userId,
-      jobRole: user.jobRole,
+      userId: user.userid,
+      jobRole: user.jobrole,
       iat: moment().unix(),
       exp: moment()
         .add(1, 'days')
-        .unix()
+        .unix(),
     };
     return jwt.sign(payload, keys.secret);
   }
@@ -72,8 +72,7 @@ class Authentication {
     const result = {};
     if (!req.headers.authorization) {
       result.status = 'error';
-      result.message =
-        'Please make sure your request has an authorization header';
+      result.message = 'Please make sure your request has an authorization header';
       return result;
     }
     const token = req.headers.authorization.split(' ')[1];

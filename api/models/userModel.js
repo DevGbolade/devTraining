@@ -24,7 +24,7 @@ class User extends Query {
           req.jobRole,
           req.gender,
           req.department,
-          req.address
+          req.address,
         ]
       );
       return rows[0];
@@ -32,7 +32,6 @@ class User extends Query {
       throw err;
     }
   }
-
 }
 
 export default User;
