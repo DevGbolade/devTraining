@@ -40,8 +40,8 @@ class Authentication {
 
   static signJwt(user) {
     const payload = {
-      userId: user.userId,
-      jobRole: user.jobRole,
+      userId: user.userid,
+      jobRole: user.jobrole,
       iat: moment().unix(),
       exp: moment()
         .add(1, 'days')

@@ -24,8 +24,8 @@ const bodyValidation = (req, res, next) => {
         if (err) {
           // Custom Error
           const SimplifiedError = {
-            status: 400,
-            error: err.details
+            status: 'error',
+            message: err.details
               ? err.details[0].message.replace(/['"]/g, '')
               : err.message
           };
