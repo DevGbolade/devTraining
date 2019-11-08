@@ -17,9 +17,9 @@ class Authentication {
    */
   static async authenticate(req, res, next) {
     const payload = await Authentication.consumeToken(req);
-    if (payload.status && payload.status !== 200) {
-      return response.sendError(res, payload.status, payload.message);
-    }
+    // if (payload.status && payload.status !== 200) {
+    //   return response.sendError(res, payload.status, payload.message);
+    // }
     req.userId = payload.userId;
     req.jobRole = payload.jobRole;
     return next();
