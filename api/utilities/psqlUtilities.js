@@ -1,5 +1,3 @@
-/* eslint-disable no-useless-catch */
-/* eslint-disable node/no-unsupported-features/es-syntax */
 import pool from '../models/indexModel';
 
 export default class Query {
@@ -85,6 +83,15 @@ export default class Query {
     }
   }
 
+  async insertIntoFeedsDb(columns, selector, values) {
+    const query = `INSERT INTO feeds (${columns}) VALUES(${selector}) RETURNING *`;
+    try {
+      const response = await this.pool.query(query, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
 
 
   /**
