@@ -84,18 +84,18 @@ class Authentication {
         payload = Authentication.bearer(token);
         break;
       default:
-        result.status = 'error';
+        result.status = 401;
         result.message = 'Invalid token type. Must be type Bearer';
         return result;
     }
     if (!payload) {
-      result.status = 'error';
+      result.status = 401;
       result.message = 'Authorization Denied.';
       return result;
     }
 
     if (payload.exp <= moment().unix()) {
-      result.status = 'error';
+      result.status = 401;
       result.message = 'Token has expired';
       return result;
     }

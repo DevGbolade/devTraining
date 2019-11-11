@@ -93,6 +93,25 @@ export default class Query {
     }
   }
 
+  async insertIntogifsDb(columns, selector, values) {
+    const query = `INSERT INTO gifs (${columns}) VALUES(${selector}) RETURNING *`;
+    try {
+      const response = await this.pool.query(query, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async insertIntoArticlesDb(columns, selector, values) {
+    const query = `INSERT INTO articles (${columns}) VALUES(${selector}) RETURNING *`;
+    try {
+      const response = await this.pool.query(query, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
 
   /**
    * Insert into db
