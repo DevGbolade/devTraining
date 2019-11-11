@@ -28,7 +28,7 @@ class ResponseGenerator {
     // Here this.type === 'error'
     return res.status(this.status).json({
       status: 'error',
-      error: this.message
+      message: this.message
     });
   }
 

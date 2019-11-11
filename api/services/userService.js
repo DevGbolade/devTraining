@@ -20,11 +20,12 @@ class Userservice {
       const newUser = await User.createANewUser(req.body, false, password);
       const token = Auth.signJwt({ userId: newUser.userid, jobRole });
       return {
+        message: 'User account successfully created',
         token,
         userId: newUser.userid,
         firstName: newUser.firstname,
         lastName: newUser.lastname,
-        isAdmin: newUser.isadmin,
+        jobRole: newUser.jobrole,
         email: newUser.email,
       };
     } catch (err) {
