@@ -35,6 +35,18 @@ class ArticleController {
       return response.sendError(res, 400, err.message);
     }
   }
+
+  static async deleteArticle(req, res) {
+    try {
+      const deletedArticle = await ArticleService.deleteArticle(req);
+      if (deletedArticle) {
+        return response.sendSuccess(res, 201, deletedArticle);
+      }
+      return response.sendError(res, 500, 'Something went wrong');
+    } catch (err) {
+      return response.sendError(res, 400, err.message);
+    }
+  }
 }
 
 export default ArticleController;

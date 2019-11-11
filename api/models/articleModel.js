@@ -47,6 +47,18 @@ class Article extends Query {
       throw error;
     }
   }
+
+  async deleteArticle(req) {
+    try {
+      const { rows } = await this.deleteByParams(
+        'feedid',
+        [req.params.articleId]
+      );
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 

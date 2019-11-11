@@ -24,6 +24,17 @@ class ArticleService {
       throw err;
     }
   }
+
+  static async deleteArticle(req) {
+    try {
+      await Article.deleteArticle(req);
+      return {
+        message: 'Article Successfully Deleted'
+      };
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 export default ArticleService;

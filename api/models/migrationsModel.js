@@ -60,7 +60,8 @@ const createTables = `
     title VARCHAR(150) NOT NULL,
     imageUrl  VARCHAR(255) NOT NULL,
     flagged BOOLEAN  NULL,
-    createdOn TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    createdOn TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(feedId) REFERENCES feeds(feedId) ON DELETE CASCADE
 
   
   );
@@ -71,7 +72,8 @@ const createTables = `
     title VARCHAR(150) NOT NULL,
     article  VARCHAR(255) NOT NULL,
     flagged BOOLEAN  NULL,
-    createdOn TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+    createdOn TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY(feedId) REFERENCES feeds(feedId) ON DELETE CASCADE
 
   );
 
