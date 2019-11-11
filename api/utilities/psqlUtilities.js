@@ -1,5 +1,3 @@
-/* eslint-disable no-useless-catch */
-/* eslint-disable node/no-unsupported-features/es-syntax */
 import pool from '../models/indexModel';
 
 export default class Query {
@@ -85,7 +83,35 @@ export default class Query {
     }
   }
 
+  async insertIntoFeedsDb(columns, selector, values) {
+    const query = `INSERT INTO feeds (${columns}) VALUES(${selector}) RETURNING *`;
+    try {
+      const response = await this.pool.query(query, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
 
+  async insertIntogifsDb(columns, selector, values) {
+    const query = `INSERT INTO gifs (${columns}) VALUES(${selector}) RETURNING *`;
+    try {
+      const response = await this.pool.query(query, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async insertIntoArticlesDb(columns, selector, values) {
+    const query = `INSERT INTO articles (${columns}) VALUES(${selector}) RETURNING *`;
+    try {
+      const response = await this.pool.query(query, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
 
   /**
    * Insert into db
@@ -94,11 +120,25 @@ export default class Query {
   async findByComment(columns, secondTable, values) {
     const query = `SELECT *
     FROM ${secondTable}
-    LEFT JOIN (SELECT seat_number FROM ${this.table}) AS B
+    LEFT JOIN (SELECT comment FROM ${this.table}) AS B
     ON ${secondTable}.${columns}=$1
     WHERE ${secondTable}.${columns}=$1`;
     try {
       const response = await this.pool.query(query, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async modifyArticle(param) {
+    const query = `UPDATE articles
+     SET title=$1, article=$2 WHERE feedid=$3 RETURNING *`;
+    try {
+      const response = await this.pool.query(
+        query,
+        param,
+      );
       return response;
     } catch (err) {
       throw err;

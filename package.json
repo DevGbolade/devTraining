@@ -7,9 +7,11 @@
     "lint": "eslint api/ --fix",
     "start": "babel-node server.js",
     "dev": "set NODE_ENV=development&& nodemon --exec babel-node  server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": " set NODE_ENV=test&& npm run prepareDB && nyc --require @babel/register ---reporter=html --reporter=text mocha api/test/**.test.js --timeout 20000 --exit",
+    "devtest": "mocha --require @babel/register  api/test/**.test.js --timeout 20000 --watch",
     "create": "babel-node api/models/migrationsModel",
-    "seed": "babel-node api/models/seederModel"
+    "seed": "babel-node api/models/seederModel",
+    "prepareDB": "npm run create && npm run seed"
 
   },
   "repository": {
@@ -27,23 +29,24 @@
   },
   "homepage": "https://github.com/rozay10/devTraining#readme",
   "dependencies": {
-    "@hapi/joi": "^16.1.7",
+    "@hapi/joi": "^15.1.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.16.0",
     "cors": "^2.8.5",
+    "datauri": "^2.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "jsonwebtoken": "^8.5.1",
-    "moment": "^2.24.0",
-    "morgan": "^1.9.1",
-    "multer": "^1.4.2",
-    "pg": "^7.12.1",
     "express-rate-limit": "^5.0.0",
     "helmet": "^3.21.2",
     "hpp": "^0.2.2",
+    "jsonwebtoken": "^8.5.1",
     "mocha": "^6.2.2",
+    "moment": "^2.24.0",
+    "morgan": "^1.9.1",
+    "multer": "^1.4.2",
     "nyc": "^14.1.1",
+    "pg": "^7.12.1",
     "prettier": "^1.18.2",
     "xss-clean": "^0.1.1"
   },
@@ -53,6 +56,8 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/polyfill": "^7.6.0",
     "@babel/preset-env": "^7.6.3",
+    "babel-eslint": "^10.0.3",
+    "@babel/register": "^7.7.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cookie-parser": "^1.4.4",
@@ -64,7 +69,8 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-node": "^10.0.0",
     "eslint-plugin-prettier": "^3.1.1",
-    "eslint-plugin-react": "^7.16.0"
+    "eslint-plugin-react": "^7.16.0",
+    "eslint-plugin-react-hooks": "^1.7.0"
   },
   "engines": {
     "node": ">=10.0.0",
