@@ -1,5 +1,4 @@
 /* eslint-disable no-console */
-/* eslint-disable node/no-unsupported-features/es-syntax */
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
 
@@ -11,36 +10,50 @@ const tableSeeds = `
   INSERT INTO
     users
       VALUES 
-      ( 1, 'Rasak', 'Adeniyi', 'raadeniyi3@gmail.com',  '$2a$12$IBnZoft9F19ae5YDPFEjn.tnyLHftihBEDmwW7uXG4Gkh1CyIMgTu', 'male', 'admin', 'hr', '06 osborne estate ikoyi', ${true}),
-      ( 2, 'Agbolade', 'Adeniyi', 'raxqy5@gmail.com',  '$2a$12$9nFqToiTmjgfFVJiQvjmreLt4k8X4gGYCETGapSZOb2hHa55t0dDq', 'male', 'admin', 'hr', '06 osborne estate ikoyi', ${true});
+      ( default,'Rasak', 'Adeniyi', 'raadeniyi3@gmail.com',  '$2a$10$YdtuirOmFW3O5knqqtnya..I7aNcZZ/ypEW7Hyka9F6.5cuggZmAq', 'male', 'admin', 'administrative', '06 osborne estate ikoyi', ${true}),
+      (default,'Agbolade', 'Adeniyi', 'raxqy5@gmail.com',  '$2a$10$YdtuirOmFW3O5knqqtnya..I7aNcZZ/ypEW7Hyka9F6.5cuggZmAq', 'male', 'hr', 'human resource', '06 osborne estate ikoyi', ${true}),
+      (default, 'Agbolade', 'Adeniyi', 'raadeniyi70@gmail.com',  '$2a$10$YdtuirOmFW3O5knqqtnya..I7aNcZZ/ypEW7Hyka9F6.5cuggZmAq', 'male', 'clerk', 'management', '06 osborne estate ikoyi', ${true});
+
+      INSERT INTO
+      categories
+        VALUES 
+        ( 1, 'sport', 'talk about sport' ),
+        ( 2, 'political', 'talk about politics' );
+
+
+      INSERT INTO
+      feeds
+        VALUES 
+        ( 1, 1, 1, 'gif'),
+        ( 2, 2, 2, 'article'),
+        ( 3, 1, 1, 'gif'),
+        ( 4, 2, 2, 'article');
+
+    
   INSERT INTO
     articles
       VALUES 
-      ( default, 1, 1, 'its my birthday', 'come and celebrate with me'),
-      ( default, 2, 2,  'its my wedding', 'come and chop life');
+      ( 2, 'birtday party', 'come and celebrate with me', false),
+      ( 4, 'wedding party', 'come and celebrate my wedding with me', false);
+
     
   INSERT INTO
     gifs
       VALUES 
-      ( default, 1, 1, 'its my birthday', 'https://tenor.com/view/download-downloading-gif-11879073'),
-      ( default, 2, 2, 'its my birthday', 'https://tenor.com/view/mail-download-send-letter-email-gif-12348454');
+      ( 1, 'politics of the day', 'https://tenor.com/view/download-downloading-gif-11879073', false),
+      ( 3, 'sports higlight', 'https://tenor.com/view/mail-download-send-letter-email-gif-12348454', false);
+
+    
+
 INSERT INTO
     comments
       VALUES 
-      ( default, 9, 1, '','nice article', false),
-      ( default, 9, '', 2 ,'nice gif post', false);
+      ( default, 1, 1, 'nice article', false),
+      ( default, 2, 2, 'nice gif post', false);
 
-INSERT INTO
-    feeds
-      VALUES 
-      ( default, 1, ''),
-      ( default, '', 2);
 
-INSERT INTO
-    categories
-      VALUES 
-      ( default, 'sport', 'talk about sport' ),
-      ( default, 'political', 'talk about politics' );      
+
+      
 `;
 
 dotenv.config();

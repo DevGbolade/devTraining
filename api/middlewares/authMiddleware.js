@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import moment from 'moment';
 import jwt from 'jsonwebtoken';
 import ResponseGenerator from '../utilities/responseUtilities';
@@ -17,9 +18,9 @@ class Authentication {
    */
   static async authenticate(req, res, next) {
     const payload = await Authentication.consumeToken(req);
-    // if (payload.status && payload.status !== 200) {
-    //   return response.sendError(res, payload.status, payload.message);
-    // }
+    if (payload.status && payload.status !== 200) {
+      return response.sendError(res, payload.status, payload.message);
+    }
     req.userId = payload.userId;
     req.jobRole = payload.jobRole;
     return next();
@@ -28,7 +29,7 @@ class Authentication {
   static restrictTo(...roles) {
     return (req, res, next) => {
       if (!roles.includes(req.jobRole)) {
-        return response.sendError(res, 403, 'Authorized for only admins');
+        return response.sendError(res, 403, 'Authorized for only Admins');
       }
       next();
     };
@@ -71,7 +72,7 @@ class Authentication {
   static async consumeToken(req) {
     const result = {};
     if (!req.headers.authorization) {
-      result.status = 'error';
+      result.status = 401;
       result.message = 'Please make sure your request has an authorization header';
       return result;
     }
