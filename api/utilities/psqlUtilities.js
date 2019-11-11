@@ -144,4 +144,18 @@ export default class Query {
       throw err;
     }
   }
+
+  async deleteByParams(paramType, param) {
+    const query = `DELETE FROM  ${this.table}
+      WHERE ${paramType}=$1 RETURNING *`;
+    try {
+      const response = await this.pool.query(
+        query,
+        param,
+      );
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
 }
