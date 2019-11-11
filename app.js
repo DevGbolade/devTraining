@@ -4,6 +4,7 @@ import cors from 'cors';
 import { cloudinaryConfig } from './api/middlewares/multerCloudinaryMiddleware';
 import userRoute from './api/routes/userRoute';
 import gifRoute from './api/routes/gifRoute';
+import articleRoute from './api/routes/articleRoute';
 
 const app = express();
 const API_VERSION = '/api/v1';
@@ -20,7 +21,7 @@ app.use(
 app.use(cloudinaryConfig);
 app.use(`${API_VERSION}`, userRoute);
 app.use(`${API_VERSION}`, gifRoute);
-// app.use(`${API_VERSION}`);
+app.use(`${API_VERSION}`, articleRoute);
 // app.use(`${API_VERSION}`);
 
 app.get('/', (req, res) => {
