@@ -32,6 +32,21 @@ class Article extends Query {
       throw err;
     }
   }
+
+  async editArticle(req) {
+    try {
+      const { rows } = await this.modifyArticle(
+        [
+          req.body.title,
+          req.body.article,
+          req.params.articleId
+        ]
+      );
+      return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 

@@ -13,5 +13,9 @@ router.post(
   articleController.postArticle
 );
 
+router.patch('/articles/:articleId',
+  authMiddleware.authenticate,
+  bodyValidation,
+  articleController.editArticle);
 
 export default router;
