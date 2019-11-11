@@ -3,7 +3,7 @@ import ArticleService from '../services/articleService';
 
 const response = new ResponseGenerator();
 
-class GifController {
+class ArticleController {
   /**
      * @param {object} request express request object
      * @param {object} response express request object
@@ -23,6 +23,18 @@ class GifController {
       return response.sendError(res, 400, err.message);
     }
   }
+
+  static async editArticle(req, res) {
+    try {
+      const article = await ArticleService.editArticle(req);
+      if (article) {
+        return response.sendSuccess(res, 201, article);
+      }
+      return response.sendError(res, 500, 'Something went wrong');
+    } catch (err) {
+      return response.sendError(res, 400, err.message);
+    }
+  }
 }
 
-export default GifController;
+export default ArticleController;
