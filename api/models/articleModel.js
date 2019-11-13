@@ -1,4 +1,3 @@
-import { threadId } from 'worker_threads';
 import Query from '../utilities/psqlUtilities';
 
 class Article extends Query {
@@ -75,7 +74,7 @@ class Article extends Query {
         id: rows[0].feedid,
         createdOn: rows[0].createdon,
         title: rows[0].title,
-        artcle: rows[0].artcle,
+        artcle: rows[0].article,
         comments: [
           {
             commentId: comment.rows[0].commentid,
