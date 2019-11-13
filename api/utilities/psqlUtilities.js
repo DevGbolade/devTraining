@@ -48,6 +48,26 @@ export default class Query {
     }
   }
 
+  async findComments(paramType, param) {
+    const query = `SELECT * FROM comments WHERE ${paramType}=$1`;
+    try {
+      const response = await this.pool.query(query, param);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async findByOneArticle(paramType, param) {
+    const query = `SELECT * FROM articles WHERE ${paramType}=$1`;
+    try {
+      const response = await this.pool.query(query, param);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   /**
    * Find a specific document by multiple params
    * @param {param}
@@ -85,6 +105,16 @@ export default class Query {
 
   async insertIntoFeedsDb(columns, selector, values) {
     const query = `INSERT INTO feeds (${columns}) VALUES(${selector}) RETURNING *`;
+    try {
+      const response = await this.pool.query(query, values);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async insertIntoCommentsDb(columns, selector, values) {
+    const query = `INSERT INTO comments (${columns}) VALUES(${selector}) RETURNING *`;
     try {
       const response = await this.pool.query(query, values);
       return response;
