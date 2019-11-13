@@ -35,6 +35,15 @@ class ArticleService {
       throw err;
     }
   }
+
+  static async getOneArticle(req) {
+    try {
+      const article = await Article.getArticle(req);
+      return article;
+    } catch (err) {
+      throw err;
+    }
+  }
 }
 
 export default ArticleService;

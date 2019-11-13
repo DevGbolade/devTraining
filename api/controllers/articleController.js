@@ -47,6 +47,24 @@ class ArticleController {
       return response.sendError(res, 400, err.message);
     }
   }
+
+  static async getOneArticle(req, res) {
+    try {
+      const article = await ArticleService.getOneArticle(req);
+      if (article === undefined) {
+        res.status(404).json({
+          status: 'error',
+          message: 'there is no Article with that ID'
+        });
+      }
+      if (article) {
+        return response.sendSuccess(res, 200, article);
+      }
+      return response.sendError(res, 500, 'Something went wrong');
+    } catch (err) {
+      return response.sendError(res, 400, err.message);
+    }
+  }
 }
 
 export default ArticleController;

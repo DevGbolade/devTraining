@@ -15,6 +15,9 @@ router.post(
 
 router
   .route('/articles/:articleId')
+  .get(authMiddleware.authenticate,
+    bodyValidation,
+    articleController.getOneArticle)
   .patch(
     authMiddleware.authenticate,
     bodyValidation,
@@ -22,6 +25,7 @@ router
   )
   .delete(
     authMiddleware.authenticate,
+    bodyValidation,
     articleController.deleteArticle
   );
 
