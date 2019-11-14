@@ -59,6 +59,36 @@ class Article extends Query {
       throw error;
     }
   }
+
+  async getArticle(req) {
+    try {
+      const { rows } = await this.findByOneArticle(
+        'feedid',
+        [req.params.articleId]
+      );
+      const comment = await this.findComments(
+        'feedid',
+        [rows[0].feedid]
+      );
+      return {
+        id: rows[0].feedid,
+        createdOn: rows[0].createdon,
+        title: rows[0].title,
+        artcle: rows[0].article,
+        comments: [
+          {
+            commentId: comment.rows[0].commentid,
+            comment: comment.rows[0].comment,
+            authorId: comment.rows[0].authorid
+          }
+        ]
+      };
+
+      // return rows[0];
+    } catch (error) {
+      throw error;
+    }
+  }
 }
 
 

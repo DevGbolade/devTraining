@@ -2,9 +2,11 @@ import express from 'express';
 import articleController from '../controllers/articleController';
 import authMiddleware from '../middlewares/authMiddleware';
 import bodyValidation from '../middlewares/validation/bodyValidation';
+import commentRoute from './commentRoute';
 
 
 const router = express.Router();
+router.use('/articles/:articleId/comments', commentRoute);
 
 router.post(
   '/articles',
@@ -15,6 +17,9 @@ router.post(
 
 router
   .route('/articles/:articleId')
+  .get(authMiddleware.authenticate,
+    bodyValidation,
+    articleController.getOneArticle)
   .patch(
     authMiddleware.authenticate,
     bodyValidation,
@@ -22,6 +27,7 @@ router
   )
   .delete(
     authMiddleware.authenticate,
+    bodyValidation,
     articleController.deleteArticle
   );
 
