@@ -188,4 +188,35 @@ export default class Query {
       throw err;
     }
   }
+
+  async getAllGifFeeds() {
+    const query = `SELECT feeds.feedid, feeds.createdon, gifs.imageurl, feeds.authorid
+    FROM feeds 
+    iNNER JOIN gifs  ON gifs.feedid = feeds.feedid 
+    ORDER BY createdon
+
+    `;
+    try {
+      const response = await this.pool.query(query);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
+  async getAllArticleFeeds() {
+    const query = `SELECT feeds.feedid, feeds.createdon, articles.article, feeds.authorid
+    FROM feeds 
+    INNER JOIN 
+    articles ON articles.feedid = feeds.feedid
+    ORDER BY createdon
+   
+    `;
+    try {
+      const response = await this.pool.query(query);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
 }
