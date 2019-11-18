@@ -35,14 +35,24 @@ class Article extends Query {
 
   async editArticle(req) {
     try {
-      const { rows } = await this.modifyArticle(
-        [
-          req.body.title,
-          req.body.article,
-          req.params.articleId
-        ]
+      const authorId = await this.findFeedId(
+        [req.params.articleId]
       );
-      return rows[0];
+
+      if (authorId.rows[0].authorid && authorId.rows[0].type === 'article' && authorId.rows[0].authorid === req.userId) {
+        const { rows } = await this.modifyArticle(
+          [
+            req.body.title,
+            req.body.article,
+            req.params.articleId
+          ]
+        );
+        return rows[0];
+      }
+      return {
+        status: 'error',
+        message: 'you are not permitted to edit this article'
+      };
     } catch (error) {
       throw error;
     }
@@ -50,11 +60,21 @@ class Article extends Query {
 
   async deleteArticle(req) {
     try {
-      const { rows } = await this.deleteByParams(
-        'feedid',
+      const authorId = await this.findFeedId(
         [req.params.articleId]
       );
-      return rows[0];
+
+      if (authorId.rows[0].authorid && authorId.rows[0].type === 'article' && authorId.rows[0].authorid === req.userId) {
+        const { rows } = await this.deleteByParams(
+          'feedid',
+          [req.params.articleId]
+        );
+        return rows[0];
+      }
+      return {
+        status: 'error',
+        message: 'you are not permitted to delete this article'
+      };
     } catch (error) {
       throw error;
     }
@@ -83,8 +103,6 @@ class Article extends Query {
           }
         ]
       };
-
-      // return rows[0];
     } catch (error) {
       throw error;
     }
