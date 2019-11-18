@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-/* eslint-disable node/no-unsupported-features/es-syntax */
 import http from 'http';
 import dotenv from 'dotenv';
 import { Pool } from 'pg';
@@ -18,7 +16,7 @@ const pool = new Pool({
 pool
   .connect()
   .then(() => console.log('Database is connected'))
-  .catch(err => console.log(`Something went wrong! ${err}`));
+  .catch((err) => console.log(`Something went wrong! ${err}`));
 
 const server = http.createServer(app);
 

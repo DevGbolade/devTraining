@@ -15,11 +15,7 @@ class ArticleService {
   static async editArticle(req) {
     try {
       const editedArticle = await Article.editArticle(req);
-
-      return {
-        title: editedArticle.title,
-        article: editedArticle.article
-      };
+      return editedArticle;
     } catch (err) {
       throw err;
     }
@@ -27,10 +23,8 @@ class ArticleService {
 
   static async deleteArticle(req) {
     try {
-      await Article.deleteArticle(req);
-      return {
-        message: 'Article Successfully Deleted'
-      };
+      const deletedArticle = await Article.deleteArticle(req);
+      return deletedArticle;
     } catch (err) {
       throw err;
     }
