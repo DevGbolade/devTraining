@@ -5,7 +5,7 @@
   "main": "server.js",
   "scripts": {
     "lint": "eslint api/ --fix",
-    "start": "node server.js",
+    "start": "babel-node server.js",
     "dev": "set NODE_ENV=development&& nodemon --exec babel-node  server.js",
     "test": " set NODE_ENV=test&& npm run prepareDB && nyc --require @babel/register ---reporter=html --reporter=text mocha api/test/**.test.js --timeout 20000 --exit",
     "devtest": "mocha --require @babel/register  api/test/**.test.js --timeout 20000 --watch",
