@@ -12,7 +12,6 @@
     "create": "babel-node api/models/migrationsModel",
     "seed": "babel-node api/models/seederModel",
     "prepareDB": "npm run create && npm run seed"
-
   },
   "repository": {
     "type": "git",
@@ -30,6 +29,7 @@
   "homepage": "https://github.com/rozay10/devTraining#readme",
   "dependencies": {
     "@hapi/joi": "^15.1.0",
+    "babel-cli": "^6.26.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.16.0",
