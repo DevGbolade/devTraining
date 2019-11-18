@@ -4,7 +4,7 @@ import { Pool } from 'pg';
 
 import keys from '../utilities/configUtilities';
 
-const { psqlUrl, psqlTest } = keys;
+const { psqlUrl, travisDb } = keys;
 
 const tableSeeds = `
   INSERT INTO
@@ -58,7 +58,7 @@ INSERT INTO
 
 dotenv.config();
 const pool = new Pool({
-  connectionString: process.env.NODE_ENV === 'test' ? psqlTest : psqlUrl
+  connectionString: process.env.NODE_ENV === 'test' ? travisDb : psqlUrl
 });
 
 pool.on('connect', () => {

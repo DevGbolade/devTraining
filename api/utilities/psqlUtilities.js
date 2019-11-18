@@ -48,6 +48,21 @@ export default class Query {
     }
   }
 
+  async findFeedId(param) {
+    const query = `SELECT feeds.feedid, feeds.createdon, articles.article, feeds.authorid, feeds.type
+    FROM feeds 
+    INNER JOIN 
+    articles ON articles.feedid = feeds.feedid
+    WHERE feeds.feedid=$1
+   `;
+    try {
+      const response = await this.pool.query(query, param);
+      return response;
+    } catch (err) {
+      throw err;
+    }
+  }
+
   async findComments(paramType, param) {
     const query = `SELECT * FROM comments WHERE ${paramType}=$1`;
     try {
@@ -163,7 +178,7 @@ export default class Query {
 
   async modifyArticle(param) {
     const query = `UPDATE articles
-     SET title=$1, article=$2 WHERE feedid=$3 RETURNING *`;
+     SET title=$1, article=$2 WHERE feedid=$3 RETURNING title, article`;
     try {
       const response = await this.pool.query(
         query,
