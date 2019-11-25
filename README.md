@@ -1,4 +1,4 @@
-# devTraining
+[![Build Status](https://travis-ci.org/rozay10/devTraining.svg?branch=master)](https://travis-ci.org/rozay10/devTraining)
 
 
 ## Table of Content

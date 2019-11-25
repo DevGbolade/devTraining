@@ -26,7 +26,7 @@ app.use(`${API_VERSION}`, articleRoute);
 app.use(`${API_VERSION}`, feedRoute);
 
 app.get('/', (req, res) => {
-  res.status(200).json({ message: 'Welcome to Wayfarer Api' });
+  res.status(200).json({ message: 'Welcome to TEAMWORK API' });
 });
 
 app.all('*', (req, res) => {

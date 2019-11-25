@@ -5,14 +5,14 @@
   "main": "server.js",
   "scripts": {
     "lint": "eslint api/ --fix",
-    "start": "node server.js",
+    "start": "babel-node server.js",
     "dev": "set NODE_ENV=development&& nodemon --exec babel-node  server.js",
+    "prod": "set NODE_ENV=production&& nodemon --exec babel-node  server.js",
     "test": " set NODE_ENV=test&& npm run prepareDB && nyc --require @babel/register ---reporter=html --reporter=text mocha api/test/**.test.js --timeout 20000 --exit",
     "devtest": "mocha --require @babel/register  api/test/**.test.js --timeout 20000 --watch",
     "create": "babel-node api/models/migrationsModel",
     "seed": "babel-node api/models/seederModel",
     "prepareDB": "npm run create && npm run seed"
-
   },
   "repository": {
     "type": "git",
@@ -29,7 +29,16 @@
   },
   "homepage": "https://github.com/rozay10/devTraining#readme",
   "dependencies": {
+    "@babel/core": "^7.7.2",
+    "@babel/node": "^7.6.3",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/register": "^7.7.0",
+    "@babel/runtime": "^7.7.2",
     "@hapi/joi": "^15.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.3",
+    "babel-node": "0.0.1-security",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.0",
     "cloudinary": "^1.16.0",
@@ -48,16 +57,10 @@
     "nyc": "^14.1.1",
     "pg": "^7.12.1",
     "prettier": "^1.18.2",
+    "regenerator-runtime": "^0.13.3",
     "xss-clean": "^0.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@babel/node": "^7.6.3",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/polyfill": "^7.6.0",
-    "@babel/preset-env": "^7.6.3",
-    "babel-eslint": "^10.0.3",
-    "@babel/register": "^7.7.0",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cookie-parser": "^1.4.4",
