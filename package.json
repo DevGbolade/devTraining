@@ -7,6 +7,7 @@
     "lint": "eslint api/ --fix",
     "start": "babel-node server.js",
     "dev": "set NODE_ENV=development&& nodemon --exec babel-node  server.js",
+    "prod": "set NODE_ENV=production&& nodemon --exec babel-node  server.js",
     "test": " set NODE_ENV=test&& npm run prepareDB && nyc --require @babel/register ---reporter=html --reporter=text mocha api/test/**.test.js --timeout 20000 --exit",
     "devtest": "mocha --require @babel/register  api/test/**.test.js --timeout 20000 --watch",
     "create": "babel-node api/models/migrationsModel",

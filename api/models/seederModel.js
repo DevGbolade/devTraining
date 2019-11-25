@@ -4,7 +4,8 @@ import { Pool } from 'pg';
 
 import keys from '../utilities/configUtilities';
 
-const { psqlUrl, travisDb } = keys;
+dotenv.config();
+
 
 const tableSeeds = `
   INSERT INTO
@@ -56,10 +57,28 @@ INSERT INTO
       
 `;
 
-dotenv.config();
+const {
+  psqlUrl, psqlTest, psqlHeroku
+} = keys;
+
+let connectionUrl;
+switch (process.env.NODE_ENV) {
+  case 'production':
+    connectionUrl = psqlHeroku;
+    break;
+  case 'development':
+    connectionUrl = psqlUrl;
+    break;
+
+  default:
+    break;
+}
+
 const pool = new Pool({
-  connectionString: process.env.NODE_ENV === 'test' ? travisDb : psqlUrl
+  connectionString: process.env.NODE_ENV === 'test' ? psqlTest : connectionUrl
 });
+if (process.env.NODE_ENV === 'production') pool.options.ssl = true;
+
 
 pool.on('connect', () => {
   console.log('Database connection has been established');
